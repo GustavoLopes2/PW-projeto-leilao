@@ -6,11 +6,13 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 import { validatePassword } from './../../validations/passwordValidation';
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
     const [password, setPassword] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [isPasswordValid, setIsPasswordValid] = useState(false);
+    const {t} = useTranslation();
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
@@ -33,7 +35,7 @@ const Login = () => {
         <div className="login-container">
             <Card title="Login">
                 <div className="field grid">
-                    <label htmlFor="login" style={{ width: 100 }} className="col-fixed">Login</label>
+                    <label htmlFor="login" style={{ width: 100 }} className="col-fixed">{t('Login')}</label>
                     <div className="col">
                         <InputText 
                             id="login" 
@@ -43,7 +45,7 @@ const Login = () => {
                     </div>
                 </div>
                 <div className="field grid">
-                    <label htmlFor="password" style={{ width: 100 }} className="col-fixed">Password</label>
+                    <label htmlFor="password" style={{ width: 100 }} className="col-fixed">{t('Password')}</label>
                     <div className="col">
                         <Password 
                             id="password"
@@ -58,9 +60,9 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
-                <Button label="Login" onClick={handleLoginClick} style={{ marginRight: 20 }}/>
-                <Button label="Cadastrar" onClick={() => window.open("/cadastre")} style={{ marginRight: 20 }} />
-                <Button label="Recuperar Senha" onClick={() => window.open("/recover-password")} />
+                <Button label={t('Login')} onClick={handleLoginClick} style={{ marginRight: 20 }}/>
+                <Button label={t('button.cadastre')} onClick={() => window.open("/cadastre")} style={{ marginRight: 20 }} />
+                <Button label={t('button.recoverPassword')} onClick={() => window.open("/recover-password")} />
             </Card>
         </div>
     );

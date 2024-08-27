@@ -30,7 +30,7 @@ const Cadastre = () => {
         setPasswordError(passwordErrorMessage);
 
         if (password !== confirmedPassword) {
-            setConfirmPasswordError("Passwords do not match");
+            setConfirmPasswordError("As senhas são diferentes.");
         } else {
             setConfirmPasswordError("");
         }
