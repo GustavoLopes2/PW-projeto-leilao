@@ -1,7 +1,7 @@
 {
     "welcome": "Bem-vindo",
-    "login": "Acessar",
-    "password": "Senha",
+    "login": "Login",
+    "password": "Password",
     "email": "E-mail",
     "button": {
         "login": "Login",
