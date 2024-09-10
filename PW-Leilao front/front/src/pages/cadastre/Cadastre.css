@@ -1,8 +1,112 @@
 .cadastre-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
     width: 100vw;
-    background-color: #a4c5c3;
+    background: #f5c542;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+}
+
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: auto;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+}
+
+.logo-container img {
+    width: 100%;
+    height: auto;
+}
+
+.card {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    box-sizing: border-box;
+    margin-top: 100px;
+    border-radius: 8px;
+}
+
+.field {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field, .text-base {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.field input.input-field {
+    max-width: 278px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .cadastre-container {
+        padding: 20px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .input-field {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cadastre-container {
+        padding: 15px;
+        background: #f5c542;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .input-field {
+        font-size: 0.8rem;
+    }
+
+    button {
+        font-size: 0.8rem;
+    }
+
+    .field {
+        flex-direction: column;
+    }
+
+    .field label {
+        margin-bottom: 0.2rem;
+    }
 }

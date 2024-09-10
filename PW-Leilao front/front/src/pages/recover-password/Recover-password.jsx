@@ -3,21 +3,24 @@ import './Recover-password.css';
 import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-
+import logoImage from './../../components/img/poke_market.png'; // Certifique-se de que o caminho está correto
 
 const RecoverPassword = () => {
     return (
         <div className="recover-password-container">
-            <Card title="Recuperar Senha">
-                <div class="field grid">
-                    <label for="email" style={{ width: 100 }} class="col-fixed">Email</label>
-                    <div class="col">
-                        <InputText id="email" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" />
+            <div className="logo-container">
+                <img src={logoImage} alt="Logo" />
+            </div>
+            <Card title="Recuperar Senha" className="card">
+                <div className="field grid">
+                    <label htmlFor="email" style={{ width: '100px' }} className="col-fixed">Email</label>
+                    <div className="col">
+                        <InputText id="email" type="text" className="text-base" />
                     </div>
                 </div>
                 <Button label="Recuperar Senha" />
+                <Button label="Cancelar" onClick={() => window.open("/login")} />
             </Card>
-
         </div>
     );
 }

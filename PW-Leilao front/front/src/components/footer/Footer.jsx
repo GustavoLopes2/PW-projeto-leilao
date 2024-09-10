@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 import './Footer.css';
 
 const Footer = () => {
     return (
-        <div className="footer">
-            <p>&copy;2024</p>
-        </div>
+        <footer className="footer">
+            <p>&copy; 2024 PokéMarket. Todos os direitos reservados.</p>
+        </footer>
     );
-}
+};
 
 export default Footer;

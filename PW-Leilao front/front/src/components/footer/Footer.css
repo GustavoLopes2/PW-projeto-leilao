@@ -1,6 +1,10 @@
 .footer {
-    border: 1px solid #aaa9a9;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #dfdfdf;
+    background-color: #232323;
+    color: #fdf7f9;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 250px);
+    left: 250px;
 }
