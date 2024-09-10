@@ -3,7 +3,7 @@ import './Recover-password.css';
 import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-import logoImage from './../../components/img/poke_market.png'; // Certifique-se de que o caminho está correto
+import logoImage from './../../components/img/poke_market.png';
 
 const RecoverPassword = () => {
     return (
@@ -19,7 +19,7 @@ const RecoverPassword = () => {
                     </div>
                 </div>
                 <Button label="Recuperar Senha" />
-                <Button label="Cancelar" onClick={() => window.open("/login")} />
+                <Button label="Cancelar" onClick={() => window.open("/Login")} />
             </Card>
         </div>
     );
