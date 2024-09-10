@@ -43,7 +43,7 @@ const Login = () => {
             </div>
 
             <div className="login-container">
-                <Card title="Login" className="login-card">
+                <Card className="login-card">
                     <div className="field grid">
                         <label htmlFor="login" style={{ width: 100 }} className="col-fixed">{t('Login')}</label>
                         <div className="col">

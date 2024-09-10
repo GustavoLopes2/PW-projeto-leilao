@@ -7,6 +7,7 @@ import SimpleLayout from './components/SimpleLayout';
 import Cadastre from './pages/cadastre/Cadastre';
 import RecoverPassword from './pages/recover-password/Recover-password';
 import PrivateRoute from './components/private-route/Private-route';
+import ChangePassword from './pages/change-password/Change-password';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/' element={<DefaultLayout><PrivateRoute element={<Home />} /></DefaultLayout>} />
         <Route path='/login' element={<SimpleLayout><Login/></SimpleLayout>} />
         <Route path='/cadastre' element={<SimpleLayout><Cadastre/></SimpleLayout>} />
+        <Route path='/change-password' element={<SimpleLayout><ChangePassword/></SimpleLayout>} />
         <Route path='/recover-password' element={<SimpleLayout><RecoverPassword/></SimpleLayout>} />
       </Routes>
     </BrowserRouter>

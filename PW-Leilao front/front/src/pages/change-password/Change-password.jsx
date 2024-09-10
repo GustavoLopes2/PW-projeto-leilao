@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import './Cadastre.css';
+import './Change-password.css';
 import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 import { validatePassword } from './../../validations/passwordValidation';
 import logoImage from './../../components/img/poke_market.png';
+import { InputOtp } from 'primereact/inputotp';
 
-const Cadastre = () => {
+const ChangePassword = () => {
+    const [token, setTokens] = useState();
     const [password, setPassword] = useState("");
     const [confirmedPassword, setConfirmedPassword] = useState("");
     const [passwordErrors, setPasswordErrors] = useState([]);
@@ -21,11 +23,13 @@ const Cadastre = () => {
     const handlePasswordChange = (e) => {
         const value = e.target.value;
         setPassword(value);
+        validatePasswords(value, confirmedPassword);
     };
 
     const handleConfirmedPasswordChange = (e) => {
         const value = e.target.value;
         setConfirmedPassword(value);
+        validatePasswords(password, value);
     };
 
     const validatePasswords = (password, confirmedPassword) => {
@@ -50,18 +54,14 @@ const Cadastre = () => {
     ];
 
     return (
-        <div className="cadastre-container">
+        <div className="change-container">
             <div className="logo-container">
                 <img src={logoImage} alt="Logo" />
             </div>
-            <Card title="Cadastrar" className="card">
+            <Card title="Alterar Senha" className="card">
                 <div className="field">
-                    <label htmlFor="nome">Nome</label>
-                    <InputText id="nome" type="text" className="input-field" />
-                </div>
-                <div className="field">
-                    <label htmlFor="login">Login</label>
-                    <InputText id="login" type="text" className="input-field" />
+                    <label htmlFor="email">Email</label>
+                    <InputText id="email" type="text" className="input-field" />
                 </div>
                 <div className="field">
                     <label htmlFor="password">Senha</label>
@@ -97,11 +97,15 @@ const Cadastre = () => {
                         {confirmPasswordError && <small className="p-error">{confirmPasswordError}</small>}
                     </div>
                 </div>
-                <Button label="Cadastrar" disabled={!isFormValid} />
+                <div className="field">
+                    <label htmlFor="code">Código</label>
+                    <InputOtp value={token} onChange={(e) => setTokens(e.value)} />
+                </div>
+                <Button label="Alterar Senha" disabled={!isFormValid} />
                 <Button label="Cancelar" onClick={() => window.open("/login")} />
             </Card>
         </div>
     );
 }
 
-export default Cadastre;
+export default ChangePassword;
