@@ -1,0 +1,13 @@
+{
+    "welcome": "Bem-vindo",
+    "login": "Login",
+    "password": "Password",
+    "email": "E-mail",
+    "button": {
+        "login": "Login",
+        "save": "Save",
+        "remove": "Remove",
+        "cadastre": "Cadastre",
+        "recoverPassword": "Recover password"
+    }
+}

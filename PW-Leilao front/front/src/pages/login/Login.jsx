@@ -7,6 +7,7 @@ import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 import iconImage from './../../components/img/pikachu_icon_found.png';
 import logoImage from './../../components/img/poke_market.png';
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
     const [login, setLogin] = useState("");
@@ -20,6 +21,7 @@ const Login = () => {
         setLoginError(e.target.value ? "" : "Login é obrigatório");
         setIsLoginValid(!!e.target.value);
     };
+    const { t } = useTranslation();
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
@@ -43,7 +45,7 @@ const Login = () => {
             <div className="login-container">
                 <Card title="Login" className="login-card">
                     <div className="field grid">
-                        <label htmlFor="login" style={{ width: 100 }} className="col-fixed">Login</label>
+                        <label htmlFor="login" style={{ width: 100 }} className="col-fixed">{t('Login')}</label>
                         <div className="col">
                             <InputText
                                 id="login"
@@ -59,7 +61,7 @@ const Login = () => {
                         </div>
                     </div>
                     <div className="field grid">
-                        <label htmlFor="password" style={{ width: 100 }} className="col-fixed">Password</label>
+                    <label htmlFor="password" style={{ width: 100 }} className="col-fixed">{t('Password')}</label>
                         <div className="col">
                             <Password
                                 id="password"
