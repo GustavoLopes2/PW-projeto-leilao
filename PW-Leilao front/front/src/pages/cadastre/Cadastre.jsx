@@ -97,7 +97,7 @@ const Cadastre = () => {
                         {confirmPasswordError && <small className="p-error">{confirmPasswordError}</small>}
                     </div>
                 </div>
-                <Button label="Cadastrar" disabled={!isFormValid} />
+                <Button label="Cadastrar" disabled={!isFormValid} onClick={() => window.open("/")} />
                 <Button label="Cancelar" onClick={() => window.open("/login")} />
             </Card>
         </div>

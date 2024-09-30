@@ -2,12 +2,12 @@ import React from "react";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
 
-const DefaultLayout = ({children}) => {
-    return(
+const DefaultLayout = ({ children, onProfileClick, onLogoutClick }) => {
+    return (
         <>
-            <Header/>
-                {children}
-            <Footer/>
+            <Header onProfileClick={onProfileClick} onLogoutClick={onLogoutClick} />
+            {children}
+            <Footer />
         </>
     );
 }
