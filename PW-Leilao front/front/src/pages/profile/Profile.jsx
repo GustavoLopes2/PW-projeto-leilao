@@ -1,104 +1,143 @@
 import React, { useState } from 'react';
-import { cpf } from 'cpf-cnpj-validator';
-import './ProfileEdit.css';
+import axios from 'axios';
+import './Profile.css';
 
 const Profile = () => {
-    const [name, setName] = useState('');
-    const [cpfNumber, setCpfNumber] = useState('');
-    const [address, setAddress] = useState('');
-    const [documents, setDocuments] = useState('');
-    const [profileImage, setProfileImage] = useState(null);
+  const [address, setAddress] = useState({
+    cep: '',
+    street: '',
+    city: '',
+    state: '',
+  });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+  const [error, setError] = useState('');
 
-        if (!cpf.isValid(cpfNumber)) {
-            alert('CPF inválido');
-            return;
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          getAddressFromCoords(latitude, longitude);
+        },
+        () => {
+          setError('Erro ao obter localização');
         }
+      );
+    } else {
+      setError('Geolocalização não suportada pelo navegador');
+    }
+  };
 
-        console.log({ name, cpfNumber, address, documents, profileImage });
-        alert('Perfil atualizado com sucesso!');
-    };
+  const getAddressFromCoords = async (latitude, longitude) => {
+    const apiKey = 'SUA_GOOGLE_MAPS_API_KEY';
+    try {
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
+      );
+      const result = response.data.results[0];
+      const addressComponents = result.address_components;
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setProfileImage(reader.result);
-            };
-            reader.readAsDataURL(file);
+      const street = addressComponents.find((comp) => comp.types.includes('route'))?.long_name || '';
+      const city = addressComponents.find((comp) => comp.types.includes('locality'))?.long_name || '';
+      const state = addressComponents.find((comp) => comp.types.includes('administrative_area_level_1'))?.short_name || '';
+
+      setAddress((prevState) => ({
+        ...prevState,
+        street,
+        city,
+        state,
+      }));
+    } catch (error) {
+      setError('Erro ao obter endereço');
+    }
+  };
+
+  const handleCepChange = async (e) => {
+    const cep = e.target.value.replace(/\D/g, '');
+    setAddress({ ...address, cep });
+
+    if (cep.length === 8) {
+      try {
+        const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+        if (!response.data.erro) {
+          const { logradouro, localidade, uf } = response.data;
+          setAddress({
+            cep,
+            street: logradouro,
+            city: localidade,
+            state: uf,
+          });
+        } else {
+          setError('CEP não encontrado');
         }
-    };
+      } catch (error) {
+        setError('Erro ao buscar o CEP');
+      }
+    }
+  };
 
-    return (
-        <div className="profile-edit-container">
-            <h2>Edição de Perfil</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Nome:</label>
-                    <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                </div>
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setAddress({ ...address, [name]: value });
+  };
 
-                <div className="form-group">
-                    <label htmlFor="cpf">CPF:</label>
-                    <input
-                        type="text"
-                        id="cpf"
-                        value={cpfNumber}
-                        onChange={(e) => setCpfNumber(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="address">Endereço Completo:</label>
-                    <textarea
-                        id="address"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        required
-                    ></textarea>
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="documents">Documentos:</label>
-                    <input
-                        type="text"
-                        id="documents"
-                        value={documents}
-                        onChange={(e) => setDocuments(e.target.value)}
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="profileImage">Foto de Perfil:</label>
-                    <input
-                        type="file"
-                        id="profileImage"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                    />
-                </div>
-
-                {profileImage && (
-                    <div className="image-preview">
-                        <h4>Prévia da Foto:</h4>
-                        <img src={profileImage} alt="Preview" />
-                    </div>
-                )}
-
-                <button type="submit">Salvar Alterações</button>
-            </form>
+  return (
+    <div className="profile-edit-container">
+      <h2>Edição de Perfil</h2>
+      <form>
+        <div className="form-group">
+          <label htmlFor="cep">CEP:</label>
+          <input
+            type="text"
+            id="cep"
+            name="cep"
+            value={address.cep}
+            onChange={handleCepChange}
+            placeholder="Informe o CEP"
+          />
         </div>
-    );
+
+        <div className="form-group">
+          <label htmlFor="street">Rua:</label>
+          <input
+            type="text"
+            id="street"
+            name="street"
+            value={address.street}
+            onChange={handleInputChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="city">Cidade:</label>
+          <input
+            type="text"
+            id="city"
+            name="city"
+            value={address.city}
+            onChange={handleInputChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="state">Estado:</label>
+          <input
+            type="text"
+            id="state"
+            name="state"
+            value={address.state}
+            onChange={handleInputChange}
+          />
+        </div>
+
+        <button type="button" onClick={getLocation}>
+          Usar minha localização
+        </button>
+      </form>
+
+      {error && <p className="error">{error}</p>}
+    </div>
+  );
 };
 
 export default Profile;
