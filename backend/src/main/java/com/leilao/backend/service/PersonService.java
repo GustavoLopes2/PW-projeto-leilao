@@ -22,9 +22,6 @@ public class PersonService {
 
         personSaved.setName(person.getName());
         personSaved.setEmail(person.getEmail());
-        personSaved.setPassword(person.getPassword());
-        personSaved.setValidationCode(person.getValidationCode());
-        personSaved.setValidationCodeValidity(person.getValidationCodeValidity());
 
         return personRepository.save(personSaved);
     }
